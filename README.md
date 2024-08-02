@@ -1,6 +1,8 @@
-This repository contains all the scripts for running our dataset, which is explained in our paper: 'An Extensive High-fidelity Wheat Plant Reconstruction Dataset trained using 3D Gaussian Splatting and Neural Radiance Field'. 
+This repository contains all the scripts for running our dataset, which is explained in our paper: 'High-fidelity Wheat Plant Reconstruction using 3D Gaussian Splatting and Neural Radiance Fields'. 
 
-The dataset can be accessed using this link: https://uniofnottm-my.sharepoint.com/my?id=%2Fpersonal%2Flewis%5Fstuart%5Fnottingham%5Fac%5Fuk%2FDocuments%2F3D%5FWheat%5FView%5FSynth%5FDataset%5FZipped&ga=1
+![Overview of 3D reconstructions for one plant](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGl2c2dvZXdjYjFxZWY3dWU2YWZhbTFzejd3YnNhdGhyaTN1cjAxayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xPaE9UFztwNhm0p2nX/giphy-downsized-large.gif)
+
+The dataset can be accessed using this link: *https://uniofnottm-my.sharepoint.com/my?id=%2Fpersonal%2Flewis%5Fstuart%5Fnottingham%5Fac%5Fuk%2FDocuments%2F3D%5FWheat%5FView%5FSynth%5FDataset%5FZipped&ga=1*
 
 In this experiment, we utilised two UR5 robots to capture images around a series of plants on a turntable. For each image that was captured, a transform was generated that depicts where the camera is in 3D space. This dataset is compatible with current view synthesis models, such as NeRF and 3DGS. We captured 20 different wheat plants each being imaged at 6 different time frames (due to a malfunction in our setup on the 2nd week of imaging, we were only able to capture 112 instances in total). At each captured instance, we trained a series of different NeRF and 3DGS models, and evaluated the outputs of the trained model. It is possible to run our models using NeRFStudio. Other models should be able to train our dataset, as long as the model follows the standard conventions for data input that are present in the original NeRF or 3DGS models.
 
@@ -8,9 +10,11 @@ An 'run_models.py' script can be run that can view pre-trained models, train new
 
 All results generated for the plants in this dataset can be viewed in the 'results.xlsx' document.
 
+![Overview of our entire dataset capturing process](https://i.imgur.com/MbREpJh.png)
+
 # Running Our 3D Reconstructions
 
-Firstly, the dataset must be downloaded and extracted using the following link:  https://uniofnottm-my.sharepoint.com/my?id=%2Fpersonal%2Flewis%5Fstuart%5Fnottingham%5Fac%5Fuk%2FDocuments%2F3D%5FWheat%5FView%5FSynth%5FDataset%5FZipped&ga=1
+Firstly, the dataset must be downloaded and extracted using the following link:  *https://uniofnottm-my.sharepoint.com/my?id=%2Fpersonal%2Flewis%5Fstuart%5Fnottingham%5Fac%5Fuk%2FDocuments%2F3D%5FWheat%5FView%5FSynth%5FDataset%5FZipped&ga=1*
 
 To ensure that our models can be easily executed, we have included a 'run_models.py' script in this directory that is designed for simple interfacing with NeRFStudio as well as our dataset
 
@@ -43,12 +47,14 @@ It is important to note that the training and evaluation of the model will be sk
 
 It is also possible to train on your own data. Our script should run effectively, providing that your data has the following directory structure:
 
+```
 +-- Scene 
 |   +-- Date 
 |   |   +-- images
 |   |   |   +-- image_type
 |   |   +-- transforms  
 |   |   |   +-- transform_type
+```
 
 Both image_type and transform_type can be named anything, as long as this is set in the *img_type* and *transform_type* arguments.
 
@@ -63,8 +69,16 @@ If you are training on a NeRF representation (only requiring transforms) then th
 If you are training on a 3DGS representation (requiring point clouds) then the 'undistorted' subdirectory in the transforms directory can be executed. This contains a point cloud generated from COLMAP which is typically used for initialising the gaussians in the environment. It is important to note that typically these models have an *-i* argument, which should be set to the directory containing the undistorted images to train on: *-i ../../images/undistorted*. To use the segmented images instead, set the directory path to *-i ../../images/undistorted_segmented*
 
 # Data structure
+<p>
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDhzdml0OHd3N2l6N2g4NjY4cGdtcXB2ZjJwcG50azN4dXh0Y2libyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dK6aMOo6zmyYcF0ht6/giphy.gif" width="200" />
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExazZncHRiaGV5anNzaDU5ajRjdDE0YmVseW9oZXZ5aGljemtsbDV2eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FlziTAHpKHQ4utpWGa/giphy.gif" width="200" />
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHgzam9weDJjZXZxZmw0d3Vhb2hvaTU1Y3N2bWdobHdldHU2MXdnOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Mpx3b9WI2YTWfI0byN/giphy.gif" width="200" />
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3JtZzV3c3Jwam9hdjZpbXNmbHN6M28zbHllY3RjNncwYWY3ejZ5ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/W5O7f0cQTGRMpFscAc/giphy.gif" width="200" />
+</p>
+
 Our dataset has the following structure:
 
+```
 +-- Scene (plant) #1
 |   +-- Date #1
 |   |   +-- colmap  
@@ -78,7 +92,8 @@ Our dataset has the following structure:
 |   +-- Date #6
 +-- Scene (plant) #2
 ...
-+-- Scene (plant) #20 
++-- Scene (plant) #20
+```
 
 Each top level directory stores all information for each of the individual wheat plants, which we denote as a 'scene' for clarity. Every subdirectory in each scene directory stores all data collected on that specific date. Next, each date directoy is split into the following important subdirectories:
 
@@ -104,6 +119,32 @@ The data for each trained model has the following path: 'plant_name/date/view_sy
     - view_synth_type- Either be nerf or gaussian-splatting
     - experiment- Name we set as the experiment for training (typically the directory name for the transform type)
     - model- the NeRFStudio model that was used for training
+
+# Complimentory Repos
+
+A lot of different components were developed in order to capture this dataset. These have been seperated into different repos, each performing a critical function for capturing this dataset. Each repo contains an individual README providing more information.
+
+## 3DGS-to-PC
+
+Once each of the 3DGS scenes had been trained, we required that this scene be converted into a point cloud. This repo can convert any 3DGS scene into a dense point cloud with impressive colouring and detail. Ultimately, this is useful for converting the 3DGS format, which typically requires a specialised renderer to view, to a point cloud format (which most 3D viewing software will support).
+
+Link: https://github.com/Lewis-Stuart-11/3DGS-to-PC
+
+![Showcase of 3DGS to PC for plant](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2EyMHdnN2RpOG1pa21oMWxzejFwaDF1OGxlbDh3cTl1dmZhdjkydCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TLU72glPknJLuhal0B/giphy.gif)
+
+## Multi-View Robotic Imaging
+
+In order to train a view synthesis model on a plant, we needed a series of 2D images of the plant as well as the camera poses. We developed a view capture framework that can capture a series of views, equidistant from the centre of an object, using a ROS supported robot. A camera pose is recorded for each image, and these are all refined using a bundle adjustment process. The pipeline supports multiple robots as well as incorperating a turntable. Data is saved in a form compatible with training on modern view synthesis models and this was used for capturing the images and transforms for our dataset.
+
+![Showcase of duel robot setup](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdm5paXh0Z3lwb29pMGtyOWE1c2hzanFjZzV2emU4cGttazNleWEwdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FE4JcF5CeUyELIEfiE/giphy-downsized-large.gif)
+
+Link: https://github.com/Lewis-Stuart-11/Multi-View-Robotic-Imaging
+
+## Duel UR5 Config
+
+To control our robotic setup, we needed to accurately map the robots in ROS and include functionality for moving these both UR5 robots in parallel. This repo contains all UR5 URDF files for both robots, ensuring that both robots are correctly mapped in ROS. Next, we include MoveIt and config files, that allow both robots to be controlled individually, or in parallel. This package supports duel path planning with collision avoidance. Finally, we include various launch files, allowing the robots to be launched individually, or as a group. These robots can be executed in real life, or in a Gazebo simulation.
+
+Link: https://github.com/Lewis-Stuart-11/Dual-UR5-Config
 
 # Citation
 If you use this dataset or our accompanying scripts, please consider citing:
