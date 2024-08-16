@@ -1,6 +1,6 @@
 ![Overview of 3D reconstructions for one plant](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGl2c2dvZXdjYjFxZWY3dWU2YWZhbTFzejd3YnNhdGhyaTN1cjAxayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xPaE9UFztwNhm0p2nX/giphy-downsized-large.gif)
 
-# Quick Installation (For reviewers)
+# Quick Installation (For Reviewers)
 
 Firstly, download this repo, either using the download button or using the command: 
 
