@@ -18,11 +18,11 @@ Unfortunately, **this docker file will not work for all setups**, as NeRFStudio 
 
 **Once installed**, run the following command:  
 
-```run_models.py --config train_3dgs.txt```
-
-This example script will train a new instance of the plant, evaluate it, and view it. If you would prefer to just view a trained instance, then run the following command: 
-
 ```run_models.py --config view_3dgs.txt```
+
+This script will view an trained 3DGS model of the plant. If you would prefer to train and evaluate a new model of the same plant, run the following command:
+
+```run_models.py --config train_3dgs.txt```
 
 # Overview 
 
