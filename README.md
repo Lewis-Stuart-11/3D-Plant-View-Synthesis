@@ -1,6 +1,28 @@
-This repository contains all the scripts for running our dataset, which is explained in our paper: 'High-fidelity Wheat Plant Reconstruction using 3D Gaussian Splatting and Neural Radiance Fields'. 
-
 ![Overview of 3D reconstructions for one plant](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGl2c2dvZXdjYjFxZWY3dWU2YWZhbTFzejd3YnNhdGhyaTN1cjAxayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xPaE9UFztwNhm0p2nX/giphy-downsized-large.gif)
+
+# Quick Installation (For reviewers)
+
+Firstly, download this repo, either using the download button or using the command: 
+```git clone https://github.com/Lewis-Stuart-11/3D-Plant-View-Synthesis```
+
+We have provided a Docker file for installation of NeRFStudio and automatic download of a single plant (with 5 date instances) from our dataset. This Docker file was tested on Ubuntu
+
+Unfortunately, **this docker file will not work for all setups**, as NeRFStudio is a complicated software framework with many dependencies. We recommend performing the following steps instead:
+
+1. Follow the NeRFStudio installation process via the official documentation *https://docs.nerf.studio/quickstart/installation.html* (we used anaconda for running NeRFStudio)
+2. Download a sample from our dataset via the following link: *https://cvl.cs.nott.ac.uk/resources/nerf_data/bc1_1033_3.zip*
+3. Copy bc1_1033_3.zip to the same directory that this repo was downloaded to
+4. Unzip bc1_1033_3.zip
+5. Open a command line (that has NeRFStudio support) and cd to the repo directory
+
+**Once installed**, run the following command:  
+```run_models.py --config train_3dgs.txt```
+
+This example script will train a new instance of the plant, evaluate it, and view it. If you would prefer to just view a trained instance, then run the following command: ```run_models.py --config view_3dgs.txt```
+
+# Overview 
+
+This repository contains all the scripts for running our dataset, which is explained in our paper: 'High-fidelity Wheat Plant Reconstruction using 3D Gaussian Splatting and Neural Radiance Fields'. 
 
 The dataset can be accessed using this link: *https://uniofnottm-my.sharepoint.com/my?id=%2Fpersonal%2Flewis%5Fstuart%5Fnottingham%5Fac%5Fuk%2FDocuments%2F3D%5FWheat%5FView%5FSynth%5FDataset%5FZipped&ga=1*
 
@@ -14,7 +36,10 @@ All results generated for the plants in this dataset can be viewed in the 'resul
 
 # Running Our 3D Reconstructions
 
-Firstly, the dataset must be downloaded and extracted using the following link:  *https://uniofnottm-my.sharepoint.com/my?id=%2Fpersonal%2Flewis%5Fstuart%5Fnottingham%5Fac%5Fuk%2FDocuments%2F3D%5FWheat%5FView%5FSynth%5FDataset%5FZipped&ga=1*
+Firstly, download this repo: 
+```git clone https://github.com/Lewis-Stuart-11/3D-Plant-View-Synthesis```
+
+Next, the dataset should be downloaded and extracted using the following link:  *https://uniofnottm-my.sharepoint.com/my?id=%2Fpersonal%2Flewis%5Fstuart%5Fnottingham%5Fac%5Fuk%2FDocuments%2F3D%5FWheat%5FView%5FSynth%5FDataset%5FZipped&ga=1*. Not all instances need to be downloaded and extracted, only  the plants that you wish to execute. For ease of use, these should be downlaoded in same directory as the repo.
 
 To ensure that our models can be easily executed, we have included a 'run_models.py' script in this directory that is designed for simple interfacing with NeRFStudio as well as our dataset
 
@@ -28,7 +53,7 @@ It is important to note that our models are trained on version 1.0.3 (commit: 5f
 
 Our script offers capabilities for simple interface with the NeRFStudio framework. This script can be controlled using command line arguments or by a config file. All the arguments can be displayed via the following command: **run_models.py --help**
 
-Firstly, in order to set what scene instance to execute on, the name of the scene and the date for that plant instance must be provided- these are formatted as the *scene_dir* and *date* arguments (e.g. bc1_1033_3 & ). If these are not set, then the script will iteratively load every plant instance in the dataset.
+Firstly, in order to set what scene instance to execute on, the name of the scene and the date for that plant instance must be provided- these are formatted as the *scene_dir* and *date* arguments (e.g. bc1_1033_3 & 06-03-24). If these are not set, then the script will iteratively load every plant instance in the dataset.
 
 The main functionalities offered by our script are:
 

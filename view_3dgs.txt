@@ -1,0 +1,6 @@
+scene_dir = "bc1_1033_3"
+date = "06-03-24"
+
+transform_type = undistorted
+model = splatfacto
+img_type = undistorted
