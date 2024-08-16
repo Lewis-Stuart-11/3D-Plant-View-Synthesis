@@ -3,6 +3,7 @@
 # Quick Installation (For reviewers)
 
 Firstly, download this repo, either using the download button or using the command: 
+
 ```git clone https://github.com/Lewis-Stuart-11/3D-Plant-View-Synthesis```
 
 We have provided a Docker file for installation of NeRFStudio and automatic download of a single plant (with 5 date instances) from our dataset. This Docker file was tested on Ubuntu
@@ -16,9 +17,12 @@ Unfortunately, **this docker file will not work for all setups**, as NeRFStudio 
 5. Open a command line (that has NeRFStudio support) and cd to the repo directory
 
 **Once installed**, run the following command:  
+
 ```run_models.py --config train_3dgs.txt```
 
-This example script will train a new instance of the plant, evaluate it, and view it. If you would prefer to just view a trained instance, then run the following command: ```run_models.py --config view_3dgs.txt```
+This example script will train a new instance of the plant, evaluate it, and view it. If you would prefer to just view a trained instance, then run the following command: 
+
+```run_models.py --config view_3dgs.txt```
 
 # Overview 
 
