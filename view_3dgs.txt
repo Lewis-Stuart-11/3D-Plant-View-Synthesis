@@ -1,5 +1,5 @@
 scene_dir = "bc1_1033_3"
-date = "06-03-24"
+date = "13-02-24"
 
 transform_type = undistorted
 model = splatfacto

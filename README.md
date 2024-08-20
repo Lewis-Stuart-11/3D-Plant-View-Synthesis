@@ -10,7 +10,7 @@ We have provided a Docker file for installation of NeRFStudio and automatic down
 
 Unfortunately, **this docker file will not work for all setups**, as NeRFStudio is a complicated software framework with many dependencies. We recommend performing the following steps instead:
 
-1. Follow the NeRFStudio installation process via the official documentation *https://docs.nerf.studio/quickstart/installation.html* (we used anaconda for running NeRFStudio)
+1. Follow the NeRFStudio installation process via the official documentation *https://docs.nerf.studio/quickstart/installation.html* (we used anaconda for running NeRFStudio). We have validated the dataset on the latest version (1.1.3). The only potential issue with the latest version is installing GSplat (which runs 3DGS) failed when installing using NeRFStudio. However, we were able to install it directly via the Github repo: https://github.com/nerfstudio-project/gsplat.
 2. Download a sample from our dataset via the following link: *https://cvl.cs.nott.ac.uk/resources/nerf_data/bc1_1033_3.zip*
 3. Copy bc1_1033_3.zip to the same directory that this repo was downloaded to
 4. Unzip bc1_1033_3.zip
@@ -18,11 +18,11 @@ Unfortunately, **this docker file will not work for all setups**, as NeRFStudio 
 
 **Once installed**, run the following command:  
 
-```run_models.py --config view_3dgs.txt```
+```run_models.py --config view_3DGS.txt```
 
 This script will view an trained 3DGS model of the plant. If you would prefer to train and evaluate a new model of the same plant, run the following command:
 
-```run_models.py --config train_3dgs.txt```
+```run_models.py --config train_3DGS.txt```
 
 # Overview 
 
@@ -51,7 +51,7 @@ To ensure that our models can be easily executed, we have included a 'run_models
 
 In order to run the trained models, NeRFStudio must be installed correctly. NeRFStudio is an extremely robust framework for executing various view synthesis models, and they offer detailed documentation for how to run these various models. The installation process for NeRFStudio may seem complex, but in reality it is relatively straightforward. We recommend viewing the official installation page on the NeRFStudio website: *https://docs.nerf.studio/quickstart/installation.html*. We suggest setting up an Anaconda environment to ensure that this model does not adversely impact other installed packages. Ensure that this is activated before running our scripts. 
 
-It is important to note that our models are trained on version 1.0.3 (commit: 5fbb4b0af8b7ad60289b89043d8b79e9886f95c9). We recommend cloning this commit version when running our models, however, the latest version should still be compatible.
+It is important to note that our models have been tested to work with NeRFStudio version 1.1.3. We recommend installing this version if you need to run our already trained models, as later versions may not be compatible with these. If you are training from scratch, then any version should work.
 
 ## Executing the Models
 
