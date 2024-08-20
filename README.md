@@ -1,6 +1,12 @@
 ![Overview of 3D reconstructions for one plant](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGl2c2dvZXdjYjFxZWY3dWU2YWZhbTFzejd3YnNhdGhyaTN1cjAxayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xPaE9UFztwNhm0p2nX/giphy-downsized-large.gif)
 
-# Quick Installation (For reviewers)
+# For Reviewers
+
+## Updated Submission
+
+We have corrected the GitHub link in the manuscript, and have added a dockerfile and additional installation instructions to this README. Although the docker file should work in Linux, for Windows particularly we recommend a standard NeRFStudio install, which we also document below. We have also added information on dataset availability to the manuscript, licenses, and can confirm that we adhere to DOME-ML best practice for machine learning research.
+
+## Quick Installation 
 
 Firstly, download this repo, either using the download button or using the command: 
 
