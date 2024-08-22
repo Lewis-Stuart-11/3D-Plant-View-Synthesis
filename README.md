@@ -34,7 +34,7 @@ This script will view an trained 3DGS model of the plant. If you would prefer to
 
 This repository contains all the scripts for running our dataset, which is explained in our paper: 'High-fidelity Wheat Plant Reconstruction using 3D Gaussian Splatting and Neural Radiance Fields'. 
 
-The dataset can be accessed using this link: *https://uniofnottm-my.sharepoint.com/my?id=%2Fpersonal%2Flewis%5Fstuart%5Fnottingham%5Fac%5Fuk%2FDocuments%2F3D%5FWheat%5FView%5FSynth%5FDataset%5FZipped&ga=1*
+The dataset can be accessed using this link: [TO ADD: GigaDB LINK]
 
 In this experiment, we utilised two UR5 robots to capture images around a series of plants on a turntable. For each image that was captured, a transform was generated that depicts where the camera is in 3D space. This dataset is compatible with current view synthesis models, such as NeRF and 3DGS. We captured 20 different wheat plants each being imaged at 6 different time frames (due to a malfunction in our setup on the 2nd week of imaging, we were only able to capture 112 instances in total). At each captured instance, we trained a series of different NeRF and 3DGS models, and evaluated the outputs of the trained model. It is possible to run our models using NeRFStudio. Other models should be able to train our dataset, as long as the model follows the standard conventions for data input that are present in the original NeRF or 3DGS models.
 
@@ -49,7 +49,7 @@ All results generated for the plants in this dataset can be viewed in the 'resul
 Firstly, download this repo: 
 ```git clone https://github.com/Lewis-Stuart-11/3D-Plant-View-Synthesis```
 
-Next, the dataset should be downloaded and extracted using the following link:  *https://uniofnottm-my.sharepoint.com/my?id=%2Fpersonal%2Flewis%5Fstuart%5Fnottingham%5Fac%5Fuk%2FDocuments%2F3D%5FWheat%5FView%5FSynth%5FDataset%5FZipped&ga=1*. Not all instances need to be downloaded and extracted, only  the plants that you wish to execute. For ease of use, these should be downlaoded in same directory as the repo.
+Next, the dataset should be downloaded and extracted using the following link:  [TO ADD: GigaDB LINK]. Not all instances need to be downloaded and extracted, only the plants that you wish to execute. For ease of use, these should be downlaoded in same directory as the repo.
 
 To ensure that our models can be easily executed, we have included a 'run_models.py' script in this directory that is designed for simple interfacing with NeRFStudio as well as our dataset
 

@@ -1,6 +1,6 @@
 FROM dromni/nerfstudio:1.1.3 AS base
 WORKDIR /pvs
-ADD --checksum=sha256:80c826a115b8feeffe61a5023a8577a0c48dd2e7666a5579a865d515481c4ff3 https://cvl.cs.nott.ac.uk/resources/nerf_data/bc1_1033_3.zip /pvs/
+ADD --checksum=sha256:459c79553ab49d72dc32dd4533db69362e9cfa9a4e0af9651330e863b14fbcf0 https://cvl.cs.nott.ac.uk/resources/nerf_data/bc1_1033_3.zip /pvs/
 USER root
 RUN apt-get -y update \
     && apt-get -y autoremove \
