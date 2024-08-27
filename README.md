@@ -18,9 +18,10 @@ Unfortunately, **this docker file will not work for all setups**, as NeRFStudio 
 
 1. Follow the NeRFStudio installation process via the official documentation *https://docs.nerf.studio/quickstart/installation.html* (we used anaconda for running NeRFStudio). We have validated the dataset on the latest version (1.1.3). The only potential issue with the latest version is installing GSplat (which runs 3DGS) failed when installing using NeRFStudio. However, we were able to install it directly via the Github repo: https://github.com/nerfstudio-project/gsplat.
 2. Download a sample from our dataset via the following link: *https://cvl.cs.nott.ac.uk/resources/nerf_data/bc1_1033_3.zip*
-3. Copy bc1_1033_3.zip to the same directory that this repo was downloaded to
-4. Unzip bc1_1033_3.zip
-5. Open a command line (that has NeRFStudio support) and cd to the repo directory
+3. Create a new directory titled 'bc1_1033_3' in the same directory that this repo was downloaded to
+4. Copy bc1_1033_3.zip to this new directory
+5. Unzip bc1_1033_3.zip
+6. Open a command line (that has NeRFStudio support) and cd to the repo directory
 
 **Once installed**, run the following command:  
 
