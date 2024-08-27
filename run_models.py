@@ -148,14 +148,14 @@ def view_model(checkpoint_file: str) -> str:
     """Creates a command to view the model in real-time."""
     return f"ns-viewer --load-config {checkpoint_file}"
 
-def train_model(transform_path: str, experiment_name: str, model: str, output_dir: str, img_path: str = None,
+def train_model(transform_path: str, experiment_name: str, model: str, output_dir: str, img_path: str = None, colmap_dir_struct = "sparse\\0",
                 num_epochs:int = 300000, timestamp: str = "1", eval_type="filename", is_3dgs: bool = False) -> str:
     """Creates a command to train a NeRF or Gaussian Splatting model."""
     if is_3dgs:
         return f"ns-train {model} --data {transform_path} --experiment-name {experiment_name} --output-dir {output_dir} --logging.steps-per-log 5000 --max_num_iterations {num_epochs}" \
                f" --viewer.quit-on-train-completion True --timestamp {timestamp} --pipeline.model.cull-alpha-thresh 0.005 --pipeline.model.continue-cull-post-densification False" \
                f" colmap --orientation-method none --auto-scale-poses False --center-method poses --eval-mode {eval_type}" \
-               f" --images-path {img_path} --colmap-path sparse\\0 --downscale-factor 1 --assume-colmap-world-coordinate-convention False"
+               f" --images-path {img_path} --colmap-path {colmap_dir_struct} --downscale-factor 1 --assume-colmap-world-coordinate-convention False"
     
     return f"ns-train {model} --data {transform_path} --experiment-name {experiment_name} --output-dir {output_dir} --logging.steps-per-log 5000" \
                f" --max_num_iterations {num_epochs} --viewer.quit-on-train-completion True --timestamp {timestamp}" \
@@ -196,8 +196,8 @@ def run_experiment(args) -> None:
         
         if (not os.path.exists(checkpoint_path) or not os.path.exists(saved_weights_path)) or args.override:
             if run_command_with_timeout(train_model(transform_path, args.experiment_name, args.model, reconstruction_path, images_path,
-                                                    num_epochs=args.num_epochs, timestamp=args.timestamp, eval_type=eval_type, 
-                                                    is_3dgs=(args.model in GAUSSIAN_SPLATTING_MODELS)), args.timeout):
+                                                    colmap_dir_struct=args.colmap_dir_struct, num_epochs=args.num_epochs, timestamp=args.timestamp,
+                                                    eval_type=eval_type, is_3dgs=(args.model in GAUSSIAN_SPLATTING_MODELS)), args.timeout):
                 raise Exception("Model training failed or timed out")
         else:
             print(f"SKIPPING: This model has already been fully trained")
@@ -214,7 +214,7 @@ def run_experiment(args) -> None:
     if args.eval:
         print("Evaluating model")
         
-        eval_output_path = os.path.join(checkpoint_dir, "eval_nerfacto.json")
+        eval_output_path = os.path.join(checkpoint_dir, f"eval_{args.model}.json")
         
         if not os.path.exists(eval_output_path) or args.override:
             run_command_with_timeout(evaluate_model(checkpoint_path, eval_output_path), args.timeout)
@@ -321,6 +321,8 @@ if __name__ == "__main__":
     
     parser.add_argument("--transform_type", type=str, default="adjusted", help="Type of transformation to use")
     parser.add_argument("--img_type", type=str, default="rgb", help="Type of images to use")
+
+    parser.add_argument("--colmap_dir_struct", type=str, default="sparse\\0", help="Type of images to use")
     
     parser.add_argument("--timestamp", type=int, default=1, help="Timestamp for the process")
     parser.add_argument("--num_epochs", type=int, default=30000, help="Number of epochs for training")
