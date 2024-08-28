@@ -35,6 +35,8 @@ This script will view an trained 3DGS model of the plant. If you would prefer to
 
 This repository contains all the scripts for running our dataset, which is explained in our paper: 'High-fidelity Wheat Plant Reconstruction using 3D Gaussian Splatting and Neural Radiance Fields'. 
 
+The research paper can be accessed using this link: [TO ADD: GigaScience LINK]
+
 The dataset can be accessed using this link: [TO ADD: GigaDB LINK]
 
 In this experiment, we utilised two UR5 robots to capture images around a series of plants on a turntable. For each image that was captured, a transform was generated that depicts where the camera is in 3D space. This dataset is compatible with current view synthesis models, such as NeRF and 3DGS. We captured 20 different wheat plants each being imaged at 6 different time frames (due to a malfunction in our setup on the 2nd week of imaging, we were only able to capture 112 instances in total). At each captured instance, we trained a series of different NeRF and 3DGS models, and evaluated the outputs of the trained model. It is possible to run our models using NeRFStudio. Other models should be able to train our dataset, as long as the model follows the standard conventions for data input that are present in the original NeRF or 3DGS models.
