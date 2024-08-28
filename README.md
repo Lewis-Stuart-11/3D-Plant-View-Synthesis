@@ -106,7 +106,7 @@ If you are training on a 3DGS representation (requiring point clouds) then the '
 
 # Data structure
 <p>
-    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDhzdml0OHd3N2l6N2g4NjY4cGdtcXB2ZjJwcG50azN4dXh0Y2libyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dK6aMOo6zmyYcF0ht6/giphy.gif" width="200" />
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExODB3eW1nNWFwOWtmdXR2ZHB3bWtsZW1qNjE0MGkxYWh2dDZtYWM5MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/02aFHSuOrbebPdMKxk/giphy.gif" width="200" />
     <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExazZncHRiaGV5anNzaDU5ajRjdDE0YmVseW9oZXZ5aGljemtsbDV2eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FlziTAHpKHQ4utpWGa/giphy.gif" width="200" />
     <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHgzam9weDJjZXZxZmw0d3Vhb2hvaTU1Y3N2bWdobHdldHU2MXdnOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Mpx3b9WI2YTWfI0byN/giphy.gif" width="200" />
     <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3JtZzV3c3Jwam9hdjZpbXNmbHN6M28zbHllY3RjNncwYWY3ejZ5ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/W5O7f0cQTGRMpFscAc/giphy.gif" width="200" />
