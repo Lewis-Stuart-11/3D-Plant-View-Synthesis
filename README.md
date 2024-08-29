@@ -16,7 +16,7 @@ We have provided a Docker file for installation of NeRFStudio and automatic down
 
 Unfortunately, **this docker file will not work for all setups**, as NeRFStudio is a complicated software framework with many dependencies. We recommend performing the following steps instead:
 
-1. Follow the NeRFStudio installation process via the official documentation *https://docs.nerf.studio/quickstart/installation.html* (we used anaconda for running NeRFStudio). We have validated the dataset on the latest version (1.1.3). The only potential issue with the latest version is installing GSplat (which runs 3DGS) failed when installing using NeRFStudio. However, we were able to install it directly via the Github repo: https://github.com/nerfstudio-project/gsplat.
+1. Follow the NeRFStudio installation process via the official documentation *https://docs.nerf.studio/quickstart/installation.html* (we used anaconda for running NeRFStudio). We have validated the dataset on the latest version (1.1.3). The only potential issue with the latest version is that GSplat (which runs 3DGS) failed when installing using NeRFStudio. However, we were able to install it directly via the Github repo: https://github.com/nerfstudio-project/gsplat.
 2. Download a sample from our dataset via the following link: *https://cvl.cs.nott.ac.uk/resources/nerf_data/bc1_1033_3.zip*
 3. Create a new directory titled 'bc1_1033_3' in the same directory that this repo was downloaded to
 4. Copy bc1_1033_3.zip to this new directory
@@ -27,7 +27,7 @@ Unfortunately, **this docker file will not work for all setups**, as NeRFStudio 
 
 ```run_models.py --config view_3DGS.txt```
 
-This script will view an trained 3DGS model of the plant. If you would prefer to train and evaluate a new model of the same plant, run the following command:
+This script will view a trained 3DGS model of the plant. If you would prefer to train and evaluate a new model of the same plant, run the following command:
 
 ```run_models.py --config train_3DGS.txt```
 
