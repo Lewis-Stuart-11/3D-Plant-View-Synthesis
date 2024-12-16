@@ -16,7 +16,7 @@ We have provided a Docker file for installation of NeRFStudio and automatic down
 
 Unfortunately, **this docker file will not work for all setups**, as NeRFStudio is a complicated software framework with many dependencies. We recommend performing the following steps instead:
 
-1. Follow the NeRFStudio installation process via the official documentation *https://docs.nerf.studio/quickstart/installation.html* (we used anaconda for running NeRFStudio). We have validated the dataset on the latest version (1.1.3). The only potential issue with the latest version is installing GSplat (which runs 3DGS) failed when installing using NeRFStudio. However, we were able to install it directly via the Github repo: https://github.com/nerfstudio-project/gsplat.
+1. Follow the NeRFStudio installation process via the official documentation *https://docs.nerf.studio/quickstart/installation.html* (we used anaconda for running NeRFStudio). We have validated the dataset on the latest version (1.1.3). The only potential issue with the latest version is that GSplat (which runs 3DGS) failed when installing using NeRFStudio. However, we were able to install it directly via the Github repo: https://github.com/nerfstudio-project/gsplat.
 2. Download a sample from our dataset via the following link: *https://cvl.cs.nott.ac.uk/resources/nerf_data/bc1_1033_3.zip*
 3. Create a new directory titled 'bc1_1033_3' in the same directory that this repo was downloaded to
 4. Copy bc1_1033_3.zip to this new directory
@@ -27,13 +27,15 @@ Unfortunately, **this docker file will not work for all setups**, as NeRFStudio 
 
 ```run_models.py --config view_3DGS.txt```
 
-This script will view an trained 3DGS model of the plant. If you would prefer to train and evaluate a new model of the same plant, run the following command:
+This script will view a trained 3DGS model of the plant. If you would prefer to train and evaluate a new model of the same plant, run the following command:
 
 ```run_models.py --config train_3DGS.txt```
 
 # Overview 
 
 This repository contains all the scripts for running our dataset, which is explained in our paper: 'High-fidelity Wheat Plant Reconstruction using 3D Gaussian Splatting and Neural Radiance Fields'. 
+
+The research paper can be accessed using this link: [TO ADD: GigaScience LINK]
 
 The dataset can be accessed using this link: [TO ADD: GigaDB LINK]
 
@@ -52,7 +54,7 @@ Firstly, download this repo:
 
 Next, the dataset should be downloaded and extracted using the following link:  [TO ADD: GigaDB LINK]. Not all instances need to be downloaded and extracted, only the plants that you wish to execute. For ease of use, these should be downlaoded in same directory as the repo.
 
-To ensure that our models can be easily executed, we have included a 'run_models.py' script in this directory that is designed for simple interfacing with NeRFStudio as well as our dataset
+To ensure that our models can be easily executed, we have included a 'run_models.py' script in this directory that is designed for simple interfacing with NeRFStudio as well as our dataset. **Running this script is required if you are executing our trained models**, as this script will correctly update the saved paths in the config file to match the dataset location on your local PC.
 
 ## Setting up NeRFStudio
 
@@ -106,7 +108,7 @@ If you are training on a 3DGS representation (requiring point clouds) then the '
 
 # Data structure
 <p>
-    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDhzdml0OHd3N2l6N2g4NjY4cGdtcXB2ZjJwcG50azN4dXh0Y2libyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dK6aMOo6zmyYcF0ht6/giphy.gif" width="200" />
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExODB3eW1nNWFwOWtmdXR2ZHB3bWtsZW1qNjE0MGkxYWh2dDZtYWM5MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/02aFHSuOrbebPdMKxk/giphy.gif" width="200" />
     <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExazZncHRiaGV5anNzaDU5ajRjdDE0YmVseW9oZXZ5aGljemtsbDV2eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FlziTAHpKHQ4utpWGa/giphy.gif" width="200" />
     <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHgzam9weDJjZXZxZmw0d3Vhb2hvaTU1Y3N2bWdobHdldHU2MXdnOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Mpx3b9WI2YTWfI0byN/giphy.gif" width="200" />
     <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3JtZzV3c3Jwam9hdjZpbXNmbHN6M28zbHllY3RjNncwYWY3ejZ5ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/W5O7f0cQTGRMpFscAc/giphy.gif" width="200" />
@@ -172,15 +174,17 @@ Link: https://github.com/Lewis-Stuart-11/3DGS-to-PC
 
 In order to train a view synthesis model on a plant, we needed a series of 2D images of the plant as well as the camera poses. We developed a view capture framework that can capture a series of views, equidistant from the centre of an object, using a ROS supported robot. A camera pose is recorded for each image, and these are all refined using a bundle adjustment process. The pipeline supports multiple robots as well as incorperating a turntable. Data is saved in a form compatible with training on modern view synthesis models and this was used for capturing the images and transforms for our dataset.
 
-![Showcase of duel robot setup](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdm5paXh0Z3lwb29pMGtyOWE1c2hzanFjZzV2emU4cGttazNleWEwdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FE4JcF5CeUyELIEfiE/giphy-downsized-large.gif)
-
 Link: https://github.com/Lewis-Stuart-11/Multi-View-Robotic-Imaging
+
+![Showcase of duel robot setup](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZG9idWU4M2drcGZjZWF3d2FjZGRlMmdnYTBhZ2c2ZDFydzVqNXk2ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2FMP6xCDFya9LhVXbs/giphy.gif)
 
 ## Duel UR5 Config
 
 To control our robotic setup, we needed to accurately map the robots in ROS and include functionality for moving these both UR5 robots in parallel. This repo contains all UR5 URDF files for both robots, ensuring that both robots are correctly mapped in ROS. Next, we include MoveIt and config files, that allow both robots to be controlled individually, or in parallel. This package supports duel path planning with collision avoidance. Finally, we include various launch files, allowing the robots to be launched individually, or as a group. These robots can be executed in real life, or in a Gazebo simulation.
 
 Link: https://github.com/Lewis-Stuart-11/Dual-UR5-Config
+
+![Setup Comparison](https://i.imgur.com/sK5Dehf.png)
 
 # Citation
 If you use this dataset or our accompanying scripts, please consider citing:

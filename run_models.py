@@ -6,6 +6,8 @@ import subprocess
 import signal
 import shutil
 import configargparse
+import yaml
+import pathlib 
 
 from psnr_calculator import calculate_masked_psnr_set
 
@@ -64,6 +66,12 @@ def check_file_exists(file_path: str, error_message: str) -> None:
 
 def check_scene_exists(dataset_root: str, scene_dir: str, date: str) -> None:
     """Validates the existence of necessary directories for a given scene and date."""
+    if scene_dir is None or len(scene_dir) == 0:
+        raise Exception("Scene dir cannot be None")
+
+    if date is None or len(date) == 0:
+        raise Exception("Date dir cannot be None")
+
     scene_path = os.path.join(dataset_root, scene_dir)
     date_path = os.path.join(scene_path, date)
     images_path = os.path.join(date_path, "images")
@@ -79,6 +87,44 @@ def check_images_exists(dataset_root: str, scene_dir: str, date: str, img_type: 
     """Validates that the image directory in the project exists."""
     images_path = os.path.join(dataset_root, scene_dir, date, "images", img_type)
     check_dir_exists(images_path, f"Image type {img_type} not found in scene {scene_dir}")
+
+def calculate_new_data_path(data_path: str, scene_dir: str, dataset_root: str):
+    dirs = os.path.normpath(data_path).split(os.sep)
+
+    scene_idx = dirs.index(scene_dir)
+    if scene_idx == -1:
+        raise Exception("Config data path does not contain the scene")
+
+    config_root_dirs = dirs[:scene_idx]
+    dataset_root_dirs = os.path.normpath(dataset_root).split(os.sep)
+
+    print(config_root_dirs)
+    print(config_root_dirs != dataset_root_dirs)
+
+    return os.path.join('/'.join(dataset_root_dirs + dirs[scene_idx:])) if config_root_dirs != dataset_root_dirs else None
+
+def check_config_data_path(checkpoint_path: str, scene_dir: str, dataset_root: str) -> bool:
+
+    with open(checkpoint_path, "r") as config_file:
+        config_yaml_data = yaml.load(config_file, Loader=yaml.Loader)
+    
+    trainer_data_path = config_yaml_data.data
+    new_trainer_data_path = calculate_new_data_path(trainer_data_path, scene_dir, dataset_root)
+    if new_trainer_data_path is not None:
+        config_yaml_data.data = pathlib.Path(new_trainer_data_path)
+
+    output_dir = config_yaml_data.output_dir
+    new_output_dir = calculate_new_data_path(output_dir, scene_dir, dataset_root)
+    if new_output_dir is not None:
+        config_yaml_data.output_dir = pathlib.Path(new_output_dir)
+
+    if new_trainer_data_path is not None or new_output_dir is not None:
+        print("WARNING: config file contains wrong dataset root, updating with new information")
+
+        with open(checkpoint_path, "w") as config_file:
+            yaml.dump(config_yaml_data, config_file)
+
+    exit(0)
 
 def check_args(args) -> None:
     """Validates the command-line arguments."""
@@ -186,6 +232,9 @@ def run_experiment(args) -> None:
 
     checkpoint_dir = os.path.join(reconstruction_path, args.experiment_name, args.model, str(args.timestamp))
     checkpoint_path = os.path.join(checkpoint_dir, "config.yml")
+
+    if os.path.exists(checkpoint_path):
+        check_config_data_path(checkpoint_path, args.scene_dir, args.dataset_root)
 
     # Ensures that the weights are in the correct format to match the filename
     num_steps = f"{(args.num_epochs-1):09}"
