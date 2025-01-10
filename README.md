@@ -35,14 +35,14 @@ It is important to note that our models have been tested to work with NeRFStudio
 
 Our script offers capabilities for simple interface with the NeRFStudio framework. This script can be controlled using command line arguments or by a config file. All the arguments can be displayed via the following command: **run_models.py --help**
 
-Firstly, in order to set what scene instance to execute on, the name of the scene and the date for that plant instance must be provided- these are formatted as the *scene_dir* and *date* arguments (e.g. bc1_1033_3 & 06-03-24). If these are not set, then the script will iteratively load every plant instance in the dataset.
+Firstly, in order to set what scene instance to execute on, the name of the scene and the date for that plant instance must be provided- these are formatted as the ```--scene_dir``` and ```--date``` arguments (e.g. bc1_1033_3 & 06-03-24). If these are not set, then the script will iteratively load every plant instance in the dataset.
 
 The main functionalities offered by our script are:
 
-    - Viewing reconstructions: Since all the plant scenes in our dataset have been pre-trained, it is possible to load the saved checkpoints and view the final 3D reconstruction. The realtime renderer is automatically executed- this can be deactivated using the --skip_view argument.
-    - Training: By setting the *--train_model* argument, the script will start training on the specified date scene. It is critical that the model you want to train with is set for training- this can be altered using the *--model* argument with the default being *nerfacto*. 
-    - Evaluation: Once a scene has been trained, metric values can be generated using NeRFStudio or our masked PSNR generator. These can be set using the *--eval* and *--eval_masked* arguments.
-    - Exports: Render pointclouds, meshes, images and videos of the trained scene.
+1) Viewing reconstructions: Since all the plant scenes in our dataset have been pre-trained, it is possible to load the saved checkpoints and view the final 3D reconstruction. The realtime renderer is automatically executed- this can be deactivated using the ```--skip_view``` argument.
+2) Training: By setting the *--train_model* argument, the script will start training on the specified date scene. It is critical that the model you want to train with is set for training- this can be altered using the ```--model``` argument with the default being *nerfacto*. 
+3) Evaluation: Once a scene has been trained, metric values can be generated using NeRFStudio or our masked PSNR generator. These can be set using the ```--eval``` and ```--eval_masked``` arguments.
+4) Exports: Render pointclouds, meshes, images and videos of the trained scene.
 
 ## Examples
 
@@ -58,7 +58,7 @@ We offer several examples that can be executed using the following commands:
 
 We recommend viewing the contents of these files and execute them to see how our script works. These have been set to run on the bc1_1033_3 06-03-24 instance, and perform all the avaliable training, evaluation and exporting functionality. The real-time render will then be executed at the end for viewing the model. 
 
-It is important to note that the training and evaluation of the model will be skipped, as the dataset already has pre-trained models and evluation data. To override this existing data, set the following argument: *--override*.
+It is important to note that the training and evaluation of the model will be skipped, as the dataset already has pre-trained models and evluation data. To override this existing data, set the following argument: ```--override```.
 
 ## Training Your Own Data 
 
@@ -73,7 +73,7 @@ It is also possible to train on your own data. Our script should run effectively
 |   |   |   +-- transform_type
 ```
 
-Both image_type and transform_type can be named anything, as long as this is set in the *img_type* and *transform_type* arguments.
+Both image_type and transform_type can be named anything, as long as this is set in the ```--img_type``` and ```--transform_type``` arguments.
 
 It is important for gaussian splatting (colmap) data that the images are located inside the 'images' directory. This does not matter for standard nerf 'transform.json' files, as long as each transform's file path links to the correct image.
 
@@ -85,7 +85,7 @@ If you are training on a NeRF representation (only requiring transforms) then th
 
 If you are training on a 3DGS representation (requiring point clouds) then the 'undistorted' subdirectory in the transforms directory can be executed. This contains a point cloud generated from COLMAP which is typically used for initialising the gaussians in the environment. It is important to note that typically these models have an *-i* argument, which should be set to the directory containing the undistorted images to train on: *-i ../../images/undistorted*. To use the segmented images instead, set the directory path to *-i ../../images/undistorted_segmented*
 
-# Data structure
+# Dataset structure
 <p>
     <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExODB3eW1nNWFwOWtmdXR2ZHB3bWtsZW1qNjE0MGkxYWh2dDZtYWM5MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/02aFHSuOrbebPdMKxk/giphy.gif" width="200" />
     <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExazZncHRiaGV5anNzaDU5ajRjdDE0YmVseW9oZXZ5aGljemtsbDV2eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FlziTAHpKHQ4utpWGa/giphy.gif" width="200" />
@@ -114,17 +114,17 @@ Our dataset has the following structure:
 
 Each top level directory stores all information for each of the individual wheat plants, which we denote as a 'scene' for clarity. Every subdirectory in each scene directory stores all data collected on that specific date. Next, each date directoy is split into the following important subdirectories:
 
-    1. Images: Every captured RGB image is stored in this directory, along with generated: depth maps, segmented images and masks. Each of these types is stored in an individual directoy
-    2. Transforms: Contains all transforms for each of the images. Each subdirectory contains different transform information: 
-        -  Original- transforms captured by our robot setup.
-        -  Adjusted- transforms after bundle adjustment (**We recommend running these transforms for NeRF**).
-        -  Depth- includes depth masks with the RGB images.
-        -  Segmented- image file paths include segmented images, rather than the standard RGB images.
-        -  Undistorted- Contains point cloud and transforms for undistorted images, all generated by Colmap. This does not contain a *transform.json* file, but the COLMAP output binary files (**We recommend running these transforms for 3DGS**).
-    3. Gaussian-Splatting: Stores all trained 3D gaussian splatting model data, including the evaluation metrics and exported .splat files. A .config file is included in each model and can be loaded using NeRFStudio, which will run the complete model locally after training.
-    4. NeRF: Stores all trained NeRF model data, including the evaluation metrics. A .config file is included in each model and can be loaded into NeRFStudio, which will run the complete model locally after training.
-    5. Colmap: Contains all SfM data generated in the bundle adjustment process for optimising our transforms. Each instance in our optimisation pipeline is stored in a separate directory, allowing inspection of how the camera poses were optimised at each stage of the process.
-    6. Exports: Stores all meshes, point clouds, rendered images and rendered videos for each trained model in each plant instance.
+1) Images: Every captured RGB image is stored in this directory, along with generated: depth maps, segmented images and masks. Each of these types is stored in an individual directoy
+2) Transforms: Contains all transforms for each of the images. Each subdirectory contains different transform information: 
+    -  Original- transforms captured by our robot setup.
+    -  Adjusted- transforms after bundle adjustment (**We recommend running these transforms for NeRF**).
+    -  Depth- includes depth masks with the RGB images.
+    -  Segmented- image file paths include segmented images, rather than the standard RGB images.
+    -  Undistorted- Contains point cloud and transforms for undistorted images, all generated by Colmap. This does not contain a *transform.json* file, but the COLMAP output binary files (**We recommend running these transforms for 3DGS**).
+3) Gaussian-Splatting: Stores all trained 3D gaussian splatting model data, including the evaluation metrics and exported .splat files. A .config file is included in each model and can be loaded using NeRFStudio, which will run the complete model locally after training.
+4) NeRF: Stores all trained NeRF model data, including the evaluation metrics. A .config file is included in each model and can be loaded into NeRFStudio, which will run the complete model locally after training.
+5) Colmap: Contains all SfM data generated in the bundle adjustment process for optimising our transforms. Each instance in our optimisation pipeline is stored in a separate directory, allowing inspection of how the camera poses were optimised at each stage of the process.
+6) Exports: Stores all meshes, point clouds, rendered images and rendered videos for each trained model in each plant instance.
 
 It is important to note that a groundtruth directory is included in date directories from the 19-03-24 to the 21-03-24. Each of these contain captured ground truth scans as well as the evaluation metrics for the point cloud reconstruction accuracy of that plant. Furthermore, a 'colmap-new-transforms' directory was generated on these dates which contains all colmap data for generating transforms from SfM.
 
@@ -133,9 +133,9 @@ Evaluation metrics that are generated by the NeRFStudio evaluation script are in
 We have a variety of different trained models on the different plant instances. We recommend running the 'adjusted (NeRF)' or 'undistorted (3DGS)' models, as these produced the most impressive results. 
 
 The data for each trained model has the following path: 'plant_name/date/view_synth_type/experiment/model/1'. For clarity, the different subdirectories are:
-    - view_synth_type- Either be nerf or gaussian-splatting
-    - experiment- Name we set as the experiment for training (typically the directory name for the transform type)
-    - model- the NeRFStudio model that was used for training
+1) view_synth_type- Either be nerf or gaussian-splatting
+2) experiment- Name we set as the experiment for training (typically the directory name for the transform type)
+3) model- the NeRFStudio model that was used for training
 
 # Complimentory Repos
 
