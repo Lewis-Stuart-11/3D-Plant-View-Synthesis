@@ -7,7 +7,7 @@ import signal
 import shutil
 import configargparse
 import yaml
-import pathlib 
+import pathlib
 
 from psnr_calculator import calculate_masked_psnr_set
 
@@ -98,12 +98,11 @@ def calculate_new_data_path(data_path: str, scene_dir: str, dataset_root: str):
     config_root_dirs = dirs[:scene_idx]
     dataset_root_dirs = os.path.normpath(dataset_root).split(os.sep)
 
-    print(config_root_dirs)
-    print(config_root_dirs != dataset_root_dirs)
-
     return os.path.join('/'.join(dataset_root_dirs + dirs[scene_idx:])) if config_root_dirs != dataset_root_dirs else None
 
 def check_config_data_path(checkpoint_path: str, scene_dir: str, dataset_root: str) -> bool:
+
+    from nerfstudio.data.dataparsers.colmap_dataparser import ColmapDataParserConfig
 
     with open(checkpoint_path, "r") as config_file:
         config_yaml_data = yaml.load(config_file, Loader=yaml.Loader)
@@ -112,19 +111,25 @@ def check_config_data_path(checkpoint_path: str, scene_dir: str, dataset_root: s
     new_trainer_data_path = calculate_new_data_path(trainer_data_path, scene_dir, dataset_root)
     if new_trainer_data_path is not None:
         config_yaml_data.data = pathlib.Path(new_trainer_data_path)
+        
+        config_yaml_data.pipeline.datamanager.data = pathlib.Path(new_trainer_data_path)
 
     output_dir = config_yaml_data.output_dir
     new_output_dir = calculate_new_data_path(output_dir, scene_dir, dataset_root)
     if new_output_dir is not None:
         config_yaml_data.output_dir = pathlib.Path(new_output_dir)
 
+    if type(config_yaml_data.pipeline.datamanager.dataparser) == ColmapDataParserConfig:
+        image_dir = config_yaml_data.pipeline.datamanager.dataparser.images_path
+        new_img_dir = calculate_new_data_path(image_dir, scene_dir, dataset_root)
+        if new_img_dir is not None:
+            config_yaml_data.pipeline.datamanager.dataparser.images_path = pathlib.Path(new_img_dir)
+
     if new_trainer_data_path is not None or new_output_dir is not None:
         print("WARNING: config file contains wrong dataset root, updating with new information")
 
         with open(checkpoint_path, "w") as config_file:
             yaml.dump(config_yaml_data, config_file)
-
-    exit(0)
 
 def check_args(args) -> None:
     """Validates the command-line arguments."""
@@ -232,7 +237,7 @@ def run_experiment(args) -> None:
 
     checkpoint_dir = os.path.join(reconstruction_path, args.experiment_name, args.model, str(args.timestamp))
     checkpoint_path = os.path.join(checkpoint_dir, "config.yml")
-
+    
     if os.path.exists(checkpoint_path):
         check_config_data_path(checkpoint_path, args.scene_dir, args.dataset_root)
 
@@ -406,6 +411,9 @@ if __name__ == "__main__":
 
     if args.dataset_root == "":
         args.dataset_root = os.path.dirname(os.path.abspath(__file__))
+
+    if not os.path.isabs(args.dataset_root):
+        args.dataset_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), args.dataset_root)
 
     if args.experiment_name == "":
         args.experiment_name = args.transform_type

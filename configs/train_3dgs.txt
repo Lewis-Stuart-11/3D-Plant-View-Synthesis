@@ -1,0 +1,18 @@
+scene_dir = "bc1_1033_3"
+date = "06-03-24"
+dataset_root = "Plant_Dataset"
+
+transform_type = undistorted
+model = splatfacto
+img_type = undistorted
+
+train_model = true
+eval= true
+eval_masked = true
+render_image = true
+
+bounding_box = [-0.5, 0.5, -0.5, 0.5, -1.25, 1.25]
+
+export_gaussians = true
+
+override = true

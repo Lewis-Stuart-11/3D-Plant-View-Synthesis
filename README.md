@@ -1,36 +1,5 @@
 ![Overview of 3D reconstructions for one plant](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGl2c2dvZXdjYjFxZWY3dWU2YWZhbTFzejd3YnNhdGhyaTN1cjAxayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xPaE9UFztwNhm0p2nX/giphy-downsized-large.gif)
 
-# For Reviewers
-
-## Updated Submission
-
-We have corrected the GitHub link in the manuscript, and have added a dockerfile and additional installation instructions to this README. Although the docker file should work in Linux, for Windows particularly we recommend a standard NeRFStudio install, which we also document below. We have also added information on dataset availability to the manuscript, licenses, and can confirm that we adhere to DOME-ML best practice for machine learning research.
-
-## Quick Installation 
-
-Firstly, download this repo, either using the download button or using the command: 
-
-```git clone https://github.com/Lewis-Stuart-11/3D-Plant-View-Synthesis```
-
-We have provided a Docker file for installation of NeRFStudio and automatic download of a single plant (with 5 date instances) from our dataset. This Docker file was tested on Ubuntu
-
-Unfortunately, **this docker file will not work for all setups**, as NeRFStudio is a complicated software framework with many dependencies. We recommend performing the following steps instead:
-
-1. Follow the NeRFStudio installation process via the official documentation *https://docs.nerf.studio/quickstart/installation.html* (we used anaconda for running NeRFStudio). We have validated the dataset on the latest version (1.1.3). The only potential issue with the latest version is that GSplat (which runs 3DGS) failed when installing using NeRFStudio. However, we were able to install it directly via the Github repo: https://github.com/nerfstudio-project/gsplat.
-2. Download a sample from our dataset via the following link: *https://cvl.cs.nott.ac.uk/resources/nerf_data/bc1_1033_3.zip*
-3. Create a new directory titled 'bc1_1033_3' in the same directory that this repo was downloaded to
-4. Copy bc1_1033_3.zip to this new directory
-5. Unzip bc1_1033_3.zip
-6. Open a command line (that has NeRFStudio support) and cd to the repo directory
-
-**Once installed**, run the following command:  
-
-```run_models.py --config view_3DGS.txt```
-
-This script will view a trained 3DGS model of the plant. If you would prefer to train and evaluate a new model of the same plant, run the following command:
-
-```run_models.py --config train_3DGS.txt```
-
 # Overview 
 
 This repository contains all the scripts for running our dataset, which is explained in our paper: 'High-fidelity Wheat Plant Reconstruction using 3D Gaussian Splatting and Neural Radiance Fields'. 
@@ -77,7 +46,17 @@ The main functionalities offered by our script are:
 
 ## Examples
 
-We offer two example config files: train_nerf.txt and train_3dgs.txt. We recommend viewing the contents of these files and execute them to see how our script works. To use these scripts, run: **run_models.py --config train_3dgs.txt** and **run_models.py --config train_nerf.txt**. These have been set to run on the bc1_1033_3 06-03-24 instance, and perform all the avaliable training, evaluation and exporting functionality. The real-time render will then be executed at the end for viewing the model. 
+We offer several examples that can be executed using the following commands:
+
+```run_models.py --config configs/view_3dgs.txt``` - This views a 3DGS model that has been trained on one of our plants
+
+```run_models.py --config configs/train_3dgs.txt``` - This trains a new 3DGS model of one of our plants
+
+```run_models.py --config configs/view_nerf.txt``` - This views a nerf model that has been trained on one of our plants
+
+```run_models.py --config configs/train_nerf.txt``` - This trains a new nerf model of one of our plants
+
+We recommend viewing the contents of these files and execute them to see how our script works. These have been set to run on the bc1_1033_3 06-03-24 instance, and perform all the avaliable training, evaluation and exporting functionality. The real-time render will then be executed at the end for viewing the model. 
 
 It is important to note that the training and evaluation of the model will be skipped, as the dataset already has pre-trained models and evluation data. To override this existing data, set the following argument: *--override*.
 
