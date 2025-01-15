@@ -161,7 +161,7 @@ Link: https://github.com/Lewis-Stuart-11/Multi-View-Robotic-Imaging
 
 To control our robotic setup, we needed to accurately map the robots in ROS and include functionality for moving these both UR5 robots in parallel. This repo contains all UR5 URDF files for both robots, ensuring that both robots are correctly mapped in ROS. Next, we include MoveIt and config files, that allow both robots to be controlled individually, or in parallel. This package supports duel path planning with collision avoidance. Finally, we include various launch files, allowing the robots to be launched individually, or as a group. These robots can be executed in real life, or in a Gazebo simulation.
 
-Link: https://github.com/Lewis-Stuart-11/Dual-UR5-Config
+Link: https://github.com/Lewis-Stuart-11/Duel-UR5-Config
 
 ![Setup Comparison](https://i.imgur.com/sK5Dehf.png)
 
