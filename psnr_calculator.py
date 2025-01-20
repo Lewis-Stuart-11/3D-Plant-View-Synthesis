@@ -5,7 +5,6 @@ import json
 from torchmetrics.image import PeakSignalNoiseRatio
 import torch
 import matplotlib.pyplot as plt
-from pytorch_msssim import SSIM
 
 def segment_imgs(image1, image2, mask):
     """Segments both images using the same mask, only returning pixel data included in the mask
