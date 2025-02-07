@@ -4,15 +4,15 @@
 
 This repository contains all the scripts for running our dataset, which is explained in our paper: 'High-fidelity Wheat Plant Reconstruction using 3D Gaussian Splatting and Neural Radiance Fields'. 
 
-The research paper can be accessed using this link: [TO ADD: GigaScience LINK]
+The research paper can be accessed using this link: [TO ADD: GigaScience LINK] 
 
-The dataset can be accessed using this link: [TO ADD: GigaDB LINK]
+The dataset can be accessed either on [Nottingham Plant Images](https://plantimages.nottingham.ac.uk/) or in the GigaScience repository, [GigaDB](https://doi.org/10.5524/102661)
 
 In this experiment, we utilised two UR5 robots to capture images around a series of plants on a turntable. For each image that was captured, a transform was generated that depicts where the camera is in 3D space. This dataset is compatible with current view synthesis models, such as NeRF and 3DGS. We captured 20 different wheat plants each being imaged at 6 different time frames (due to a malfunction in our setup on the 2nd week of imaging, we were only able to capture 112 instances in total). At each captured instance, we trained a series of different NeRF and 3DGS models, and evaluated the outputs of the trained model. It is possible to run our models using NeRFStudio. Other models should be able to train our dataset, as long as the model follows the standard conventions for data input that are present in the original NeRF or 3DGS models.
 
-An 'run_models.py' script can be run that can view pre-trained models, train new view synthesis data, evaluate and export images/videos
+A 'run_models.py' script can be executed that can view pre-trained models, train new view synthesis data, evaluate renders and export images/videos.
 
-All results generated for the plants in this dataset can be viewed in the 'results.xlsx' document.
+All results generated for the plants in this dataset can be viewed in the 'results.xlsx' document in our dataset.
 
 ![Overview of our entire dataset capturing process](https://i.imgur.com/MbREpJh.png)
 
@@ -21,13 +21,13 @@ All results generated for the plants in this dataset can be viewed in the 'resul
 Firstly, download this repo: 
 ```git clone https://github.com/Lewis-Stuart-11/3D-Plant-View-Synthesis```
 
-Next, the dataset should be downloaded and extracted using the following link:  [TO ADD: GigaDB LINK]. Not all instances need to be downloaded and extracted, only the plants that you wish to execute. For ease of use, these should be downlaoded in same directory as the repo.
+Next, the dataset should be downloaded and extracted from either [Nottingham Plant Images](https://plantimages.nottingham.ac.uk/datasets.html#3DGS_NeRF_Reconstruction) or [GigaDB](https://doi.org/10.5524/102661). Not all instances need to be downloaded and extracted, only the plants that you wish to execute. For ease of use, these should be downlaoded in same directory as the repo.
 
 To ensure that our models can be easily executed, we have included a 'run_models.py' script in this directory that is designed for simple interfacing with NeRFStudio as well as our dataset. **Running this script is required if you are executing our trained models**, as this script will correctly update the saved paths in the config file to match the dataset location on your local PC.
 
 ## Setting up NeRFStudio
 
-In order to run the trained models, NeRFStudio must be installed correctly. NeRFStudio is an extremely robust framework for executing various view synthesis models, and they offer detailed documentation for how to run these various models. The installation process for NeRFStudio may seem complex, but in reality it is relatively straightforward. We recommend viewing the official installation page on the NeRFStudio website: *https://docs.nerf.studio/quickstart/installation.html*. We suggest setting up an Anaconda environment to ensure that this model does not adversely impact other installed packages. Ensure that this is activated before running our scripts. 
+In order to run the trained models, NeRFStudio must be installed correctly. NeRFStudio is an extremely robust framework for executing various view synthesis models, and they offer detailed documentation for how to run these various models. The installation process for NeRFStudio may seem complex, but in reality it is relatively straightforward. We recommend viewing the official installation page on the [NeRFStudio website](https://docs.nerf.studio/quickstart/installation.html). We suggest setting up an Anaconda environment to ensure that this model does not adversely impact other installed packages. Ensure that this is activated before running our scripts. 
 
 It is important to note that our models have been tested to work with NeRFStudio version 1.1.3. We recommend installing this version if you need to run our already trained models, as later versions may not be compatible with these. If you are training from scratch, then any version should work.
 
@@ -40,7 +40,7 @@ Firstly, in order to set what scene instance to execute on, the name of the scen
 The main functionalities offered by our script are:
 
 1) Viewing reconstructions: Since all the plant scenes in our dataset have been pre-trained, it is possible to load the saved checkpoints and view the final 3D reconstruction. The realtime renderer is automatically executed- this can be deactivated using the ```--skip_view``` argument.
-2) Training: By setting the *--train_model* argument, the script will start training on the specified date scene. It is critical that the model you want to train with is set for training- this can be altered using the ```--model``` argument with the default being *nerfacto*. 
+2) Training: By setting the ```--train_model``` argument, the script will start training on the specified date scene. It is critical that the model you want to train with is set for training- this can be altered using the ```--model``` argument with the default being *nerfacto*. 
 3) Evaluation: Once a scene has been trained, metric values can be generated using NeRFStudio or our masked PSNR generator. These can be set using the ```--eval``` and ```--eval_masked``` arguments.
 4) Exports: Render pointclouds, meshes, images and videos of the trained scene.
 
@@ -62,7 +62,7 @@ It is important to note that the training and evaluation of the model will be sk
 
 ## Training Your Own Data 
 
-It is also possible to train on your own data. Our script should run effectively, providing that your data has the following directory structure:
+It is also possible to train on your own data. Our script should run effectively, provided that your data has the following directory structure:
 
 ```
 +-- Scene 
@@ -83,7 +83,7 @@ It is entirely possible to train this dataset without using NeRFStudio. Firstly,
 
 If you are training on a NeRF representation (only requiring transforms) then the transform.json file can be executed. This can be found in the subdirectories in the 'transform' directory found in each of the scene date instances. For standard models, the transform file in the 'original', 'adjusted' (recommended) and 'segmented' directories should run correctly. If the model you are running also supports depth file paths, then the 'depth' transform file should run correctly. If the model you are running supports masks, then the 'mask' transform file should run correctly.
 
-If you are training on a 3DGS representation (requiring point clouds) then the 'undistorted' subdirectory in the transforms directory can be executed. This contains a point cloud generated from COLMAP which is typically used for initialising the gaussians in the environment. It is important to note that typically these models have an *-i* argument, which should be set to the directory containing the undistorted images to train on: *-i ../../images/undistorted*. To use the segmented images instead, set the directory path to *-i ../../images/undistorted_segmented*
+If you are training on a 3DGS representation (requiring point clouds) then the 'undistorted' subdirectory in the transforms directory can be executed. This contains a point cloud generated from COLMAP which is typically used for initialising the Gaussians in the environment. It is important to note that typically these models have an *-i* argument, which should be set to the directory containing the undistorted images to train on: *-i ../../images/undistorted*. To use the segmented images instead, set the directory path to *-i ../../images/undistorted_segmented*
 
 # Dataset structure
 <p>
@@ -128,7 +128,7 @@ Each top level directory stores all information for each of the individual wheat
 
 It is important to note that a groundtruth directory is included in date directories from the 19-03-24 to the 21-03-24. Each of these contain captured ground truth scans as well as the evaluation metrics for the point cloud reconstruction accuracy of that plant. Furthermore, a 'colmap-new-transforms' directory was generated on these dates which contains all colmap data for generating transforms from SfM.
 
-Evaluation metrics that are generated by the NeRFStudio evaluation script are in a 'nerfstudio_eval.json', which is stored in the same directory as the config files for the trained NeRF and 3DGS models. The masked psnr metrics that are calculated by our 'masked_psnr_calculator.py' script are stored as 'masked_eval.json' in the same directory.
+Evaluation metrics that are generated by the NeRFStudio evaluation script are in a 'eval_*model*.json' (where model is the name of the NeRFStudio model that was being evaluated), which is stored in the same directory as the config files for the trained NeRF and 3DGS models. The masked psnr metrics that are calculated by our 'masked_psnr_calculator.py' script are stored as 'eval_masked.json' in the same directory.
 
 We have a variety of different trained models on the different plant instances. We recommend running the 'adjusted (NeRF)' or 'undistorted (3DGS)' models, as these produced the most impressive results. 
 
@@ -143,7 +143,7 @@ A lot of different components were developed in order to capture this dataset. T
 
 ## 3DGS-to-PC
 
-Once each of the 3DGS scenes had been trained, we required that this scene be converted into a point cloud. This repo can convert any 3DGS scene into a dense point cloud with impressive colouring and detail. Ultimately, this is useful for converting the 3DGS format, which typically requires a specialised renderer to view, to a point cloud format (which most 3D viewing software will support).
+Once each of the 3DGS scenes had been trained, we required that this scene be converted into a point cloud. This repo can convert any 3DGS scene into a dense point cloud with impressive colouring and detail. This framework is useful for converting the 3DGS format, which typically requires a specialised renderer to view, to a point cloud format (which most 3D viewing software will support).
 
 Link: https://github.com/Lewis-Stuart-11/3DGS-to-PC
 
@@ -157,11 +157,11 @@ Link: https://github.com/Lewis-Stuart-11/Multi-View-Robotic-Imaging
 
 ![Showcase of duel robot setup](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZG9idWU4M2drcGZjZWF3d2FjZGRlMmdnYTBhZ2c2ZDFydzVqNXk2ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2FMP6xCDFya9LhVXbs/giphy.gif)
 
-## Duel UR5 Config
+## Dual UR5 Config
 
-To control our robotic setup, we needed to accurately map the robots in ROS and include functionality for moving these both UR5 robots in parallel. This repo contains all UR5 URDF files for both robots, ensuring that both robots are correctly mapped in ROS. Next, we include MoveIt and config files, that allow both robots to be controlled individually, or in parallel. This package supports duel path planning with collision avoidance. Finally, we include various launch files, allowing the robots to be launched individually, or as a group. These robots can be executed in real life, or in a Gazebo simulation.
+To control our robotic setup, we needed to accurately map the robots in ROS and include functionality for moving these both UR5 robots in parallel. This repo contains all UR5 URDF files for both robots, ensuring that both robots are correctly mapped in ROS. Also, we include MoveIt and config files, that allow both robots to be controlled individually, or in parallel. This package supports duel path planning with collision avoidance. Finally, we include various launch files, allowing the robots to be launched individually, or as a group. These robots can be executed in real life, or in a Gazebo simulation.
 
-Link: https://github.com/Lewis-Stuart-11/Duel-UR5-Config
+Link: https://github.com/Lewis-Stuart-11/Dual-UR5-Config
 
 ![Setup Comparison](https://i.imgur.com/sK5Dehf.png)
 
