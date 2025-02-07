@@ -21,7 +21,7 @@ All results generated for the plants in this dataset can be viewed in the 'resul
 Firstly, download this repo: 
 ```git clone https://github.com/Lewis-Stuart-11/3D-Plant-View-Synthesis```
 
-Next, the dataset should be downloaded and extracted from either [Nottingham Plant Images](https://plantimages.nottingham.ac.uk/datasets.html#3DGS_NeRF_Reconstruction) or [GigaDB](https://doi.org/10.5524/102661). Not all instances need to be downloaded and extracted, only the plants that you wish to execute. For ease of use, these should be downlaoded in same directory as the repo.
+Next, the dataset should be downloaded and extracted from either [Nottingham Plant Images](https://plantimages.nottingham.ac.uk/datasets.html#3DGS_NeRF_Reconstruction) or [GigaDB](https://doi.org/10.5524/102661). Not all instances need to be downloaded and extracted, only the plants that you wish to execute. For ease of use, these should be downlaoded in the 'Plant_Dataset' directory in this repo.
 
 To ensure that our models can be easily executed, we have included a 'run_models.py' script in this directory that is designed for simple interfacing with NeRFStudio as well as our dataset. **Running this script is required if you are executing our trained models**, as this script will correctly update the saved paths in the config file to match the dataset location on your local PC.
 
@@ -55,6 +55,8 @@ We offer several examples that can be executed using the following commands:
 ```run_models.py --config configs/view_nerf.txt``` - This views a nerf model that has been trained on one of our plants
 
 ```run_models.py --config configs/train_nerf.txt``` - This trains a new nerf model of one of our plants
+
+It is important that when executing this script that the command line, or other software for executing this script, is running from inside the directory where this repo is saved to. This ensures that the relative file paths are correct for these config files. Furthermore, these config files will only work if the dataset is downloaded inside the 'Plant_Dataset' directory in this repo.
 
 We recommend viewing the contents of these files and execute them to see how our script works. These have been set to run on the bc1_1033_3 06-03-24 instance, and perform all the avaliable training, evaluation and exporting functionality. The real-time render will then be executed at the end for viewing the model. 
 
