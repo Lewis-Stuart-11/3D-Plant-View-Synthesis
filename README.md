@@ -2,9 +2,9 @@
 
 # Overview 
 
-This repository contains all the scripts for running our dataset, which is explained in our paper: 'High-fidelity Wheat Plant Reconstruction using 3D Gaussian Splatting and Neural Radiance Fields'. 
+This repository contains all the scripts for running our dataset, which is explained in our paper: 'High-fidelity wheat plant reconstruction using 3D Gaussian splatting and neural radiance fields'. 
 
-The research paper can be accessed using this link: [TO ADD: GigaScience LINK] 
+The research paper can be accessed using this link: [GigaScience](https://academic.oup.com/gigascience/article/doi/10.1093/gigascience/giaf022/8096368) 
 
 The dataset can be accessed either on [Nottingham Plant Images](https://plantimages.nottingham.ac.uk/) or in the GigaScience repository, [GigaDB](https://doi.org/10.5524/102661)
 
@@ -168,6 +168,19 @@ Link: https://github.com/Lewis-Stuart-11/Dual-UR5-Config
 ![Setup Comparison](https://i.imgur.com/sK5Dehf.png)
 
 # Citation
-If you use this dataset or our accompanying scripts, please consider citing:
-
-TO ADD
+```
+@article{10.1093/gigascience/giaf022,
+    author = {Stuart, Lewis A G and Wells, Darren M and Atkinson, Jonathan A and Castle-Green, Simon and Walker, Jack and Pound, Michael P},
+    title = {High-fidelity wheat plant reconstruction using 3D Gaussian splatting and neural radiance fields},
+    journal = {GigaScience},
+    volume = {14},
+    pages = {giaf022},
+    year = {2025},
+    month = {03},
+    abstract = {The reconstruction of 3-dimensional (3D) plant models can offer advantages over traditional 2-dimensional approaches by more accurately capturing the complex structure and characteristics of different crops. Conventional 3D reconstruction techniques often produce sparse or noisy representations of plants using software or are expensive to capture in hardware. Recently, view synthesis models have been developed that can generate detailed 3D scenes, and even 3D models, from only RGB images and camera poses. These models offer unparalleled accuracy but are currently data hungry, requiring large numbers of views with very accurate camera calibration.In this study, we present a view synthesis dataset comprising 20 individual wheat plants captured across 6 different time frames over a 15-week growth period. We develop a camera capture system using 2 robotic arms combined with a turntable, controlled by a re-deployable and flexible image capture framework. We trained each plant instance using two recent view synthesis models: 3D Gaussian splatting (3DGS) and neural radiance fields (NeRF). Our results show that both 3DGS and NeRF produce high-fidelity reconstructed images of a plant subject from views not captured in the initial training sets. We also show that these approaches can be used to generate accurate 3D representations of these plants as point clouds, with 0.74-mm and 1.43-mm average accuracy compared with a handheld scanner for 3DGS and NeRF, respectively.We believe that these new methods will be transformative in the field of 3D plant phenotyping, plant reconstruction, and active vision. To further this cause, we release all robot configuration and control software, alongside our extensive multiview dataset. We also release all scripts necessary to train both 3DGS and NeRF, all trained models data, and final 3D point cloud representations. Our dataset can be accessed via https://plantimages.nottingham.ac.uk/ or https://https://doi.org/10.5524/102661. Our software can be accessed via https://github.com/Lewis-Stuart-11/3D-Plant-View-Synthesis.},
+    issn = {2047-217X},
+    doi = {10.1093/gigascience/giaf022},
+    url = {https://doi.org/10.1093/gigascience/giaf022},
+    eprint = {https://academic.oup.com/gigascience/article-pdf/doi/10.1093/gigascience/giaf022/62748311/giaf022.pdf},
+}
+```
